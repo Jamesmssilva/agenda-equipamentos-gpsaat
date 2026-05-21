@@ -51,50 +51,7 @@ const equipmentMigration = {
   "microscopio": "phmetro"
 };
 
-const seedBookings = [
-  {
-    id: crypto.randomUUID(),
-    applicantName: "Ana Luiza Pereira",
-    advisorName: "Profa. Mariana Alves",
-    email: "ana.pereira@ufcat.edu.br",
-    department: "Engenharia Civil",
-    equipmentId: "microondas-anton-paar",
-    date: getDateOffset(0),
-    startTime: "09:00",
-    endTime: "11:00",
-    purpose: "Aula prática de materiais.",
-    status: "approved",
-    decisionNote: ""
-  },
-  {
-    id: crypto.randomUUID(),
-    applicantName: "Marcos Vinícius Rocha",
-    advisorName: "Prof. Eduardo Ramos",
-    email: "marcos.rocha@ufcat.edu.br",
-    department: "Projeto de Extensão",
-    equipmentId: "gfaas",
-    date: getDateOffset(2),
-    startTime: "14:00",
-    endTime: "17:30",
-    purpose: "Registro de atividade experimental.",
-    status: "pending",
-    decisionNote: ""
-  },
-  {
-    id: crypto.randomUUID(),
-    applicantName: "Carla Mendes",
-    advisorName: "Profa. Renata Castro",
-    email: "carla.mendes@ufcat.edu.br",
-    department: "PROEC",
-    equipmentId: "faas",
-    date: getDateOffset(5),
-    startTime: "18:00",
-    endTime: "21:00",
-    purpose: "Análise de amostras de projeto.",
-    status: "approved",
-    decisionNote: ""
-  }
-];
+const seedBookings = [];
 
 const state = {
   bookings: [],
