@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sistema de agendamento de equipamentos do GPSAAT/UFCAT.">
+    <title>Agenda de Equipamentos | GPSAAT UFCAT</title>
+    <link rel="preload" href="assets/ufcat-lab-hero.png" as="image">
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="app-hero">
+      <nav class="topbar" aria-label="Navegação principal">
+        <a class="brand" href="#top" aria-label="Agenda de Equipamentos GPSAAT UFCAT">
+          <span class="brand-mark">
+            <img src="assets/gpsaat-logo.jpg" alt="" aria-hidden="true">
+          </span>
+          <span>
+            <strong>GPSAAT</strong>
+            <small>Agenda de Equipamentos</small>
+          </span>
+        </a>
+        <div class="topbar-actions">
+          <a href="#agenda">Agenda</a>
+          <a href="#administracao">Administração</a>
+          <a href="#equipamentos">Equipamentos</a>
+          <a href="#novo" class="button ghost">Novo agendamento</a>
+        </div>
+      </nav>
+
+      <section class="hero-content" id="top">
+        <div class="hero-copy">
+          <p class="eyebrow">Reserva acadêmica</p>
+          <h1>Agende equipamentos do GPSAAT/UFCAT com clareza e sem conflito de horários.</h1>
+          <p>Consulte disponibilidade, registre solicitações e acompanhe as próximas retiradas em um painel simples para o grupo, laboratórios e projetos.</p>
+        </div>
+        <div class="hero-panel" aria-label="Resumo da agenda">
+          <div>
+            <span class="metric" id="todayCount">0</span>
+            <small>aprovadas hoje</small>
+          </div>
+          <div>
+            <span class="metric" id="weekCount">0</span>
+            <small>nos próximos 7 dias</small>
+          </div>
+          <div>
+            <span class="metric" id="pendingCount">0</span>
+            <small>pendentes</small>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="workspace" aria-label="Painel de agendamento">
+        <aside class="booking-form" id="novo">
+          <div class="section-heading compact">
+            <p class="eyebrow">Solicitação</p>
+            <h2>Novo agendamento</h2>
+          </div>
+
+          <form id="bookingForm">
+            <label>
+              Nome do solicitante
+              <input id="applicantName" name="applicantName" type="text" placeholder="Nome completo" required>
+            </label>
+            <label>
+              Orientador
+              <input id="advisorName" name="advisorName" type="text" placeholder="Nome do orientador" required>
+            </label>
+            <label>
+              E-mail institucional
+              <input id="email" name="email" type="email" placeholder="nome@ufcat.edu.br" required>
+            </label>
+            <label>
+              Curso, setor ou projeto
+              <input id="department" name="department" type="text" placeholder="Ex.: Engenharia, LAPEQ, PROEC" required>
+            </label>
+            <label>
+              Equipamento
+              <select id="equipment" name="equipment" required></select>
+            </label>
+            <div class="field-row">
+              <label>
+                Data
+                <input id="date" name="date" type="date" required>
+              </label>
+              <label>
+                Início
+                <input id="startTime" name="startTime" type="time" required>
+              </label>
+              <label>
+                Fim
+                <input id="endTime" name="endTime" type="time" required>
+              </label>
+            </div>
+            <label>
+              Finalidade
+              <textarea id="purpose" name="purpose" rows="4" placeholder="Aula prática, pesquisa, extensão..." required></textarea>
+            </label>
+            <div class="availability" id="availabilityMessage" role="status">Escolha equipamento, data e horário.</div>
+            <button class="button primary" type="submit">Enviar solicitação</button>
+          </form>
+        </aside>
+
+        <section class="panel" id="agenda">
+          <div class="section-heading inline">
+            <div>
+              <p class="eyebrow">Agenda</p>
+              <h2>Próximas reservas</h2>
+            </div>
+            <button class="icon-button" id="exportCsv" type="button" title="Exportar CSV" aria-label="Exportar CSV">⇩</button>
+          </div>
+
+          <div class="filters" aria-label="Filtros da agenda">
+            <label>
+              Data
+              <input id="filterDate" type="date">
+            </label>
+            <label>
+              Equipamento
+              <select id="filterEquipment"></select>
+            </label>
+            <label>
+              Status
+              <select id="filterStatus">
+                <option value="active">Aprovadas e pendentes</option>
+                <option value="approved">Aprovadas</option>
+                <option value="pending">Pendentes</option>
+                <option value="rejected">Reprovadas</option>
+                <option value="all">Todas</option>
+              </select>
+            </label>
+            <label>
+              Busca
+              <input id="search" type="search" placeholder="Solicitante, orientador ou finalidade">
+            </label>
+          </div>
+
+          <div class="schedule-list" id="scheduleList" aria-live="polite"></div>
+        </section>
+      </section>
+
+      <section class="admin-section panel" id="administracao">
+        <div class="section-heading inline">
+          <div>
+            <p class="eyebrow">Administração</p>
+            <h2>Aprovação de solicitações</h2>
+          </div>
+          <button class="button secondary" id="adminLogout" type="button" hidden>Sair</button>
+        </div>
+
+        <form class="admin-login" id="adminLogin">
+          <label>
+            E-mail do administrador
+            <input id="adminEmail" type="email" autocomplete="username" placeholder="admin@ufcat.edu.br">
+          </label>
+          <label>
+            Senha de administrador
+            <input id="adminPassword" type="password" autocomplete="current-password" required>
+          </label>
+          <button class="button primary" type="submit">Entrar</button>
+        </form>
+
+        <div class="admin-board" id="adminBoard" hidden>
+          <div class="admin-stats" aria-label="Resumo administrativo">
+            <span><strong id="adminPendingCount">0</strong> pendentes</span>
+            <span><strong id="adminApprovedCount">0</strong> aprovadas</span>
+            <span><strong id="adminRejectedCount">0</strong> reprovadas</span>
+          </div>
+          <div class="admin-list" id="adminList"></div>
+        </div>
+      </section>
+
+      <section class="equipment-section" id="equipamentos">
+        <div class="section-heading">
+          <p class="eyebrow">Patrimônio</p>
+          <h2>Equipamentos disponíveis</h2>
+        </div>
+        <div class="equipment-grid" id="equipmentGrid"></div>
+      </section>
+    </main>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "ufcat-agenda-equipamentos",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "npx serve ."
+  },
+  "keywords": [
+    "ufcat",
+    "agendamento",
+    "vercel"
+  ]
+}
