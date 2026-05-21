@@ -56,7 +56,7 @@ a {
   color: var(--ink);
   background:
     linear-gradient(120deg, rgba(255, 255, 255, 0.97) 0 43%, rgba(255, 255, 255, 0.82) 58%, rgba(255, 255, 255, 0.2)),
-    url("assets/ufcat-lab-hero.png") center / cover;
+    url("assets/gpsaat-lab-hero.png") center / cover;
 }
 
 .app-hero::before {
