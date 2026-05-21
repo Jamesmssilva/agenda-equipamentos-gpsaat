@@ -1,15 +1,17 @@
 :root {
-  --ink: #13231d;
-  --muted: #63716a;
-  --line: #dfe8e1;
-  --paper: #f7faf6;
+  --ink: #171717;
+  --muted: #676b73;
+  --line: #e4e6eb;
+  --paper: #f4f5f7;
   --surface: #ffffff;
-  --green: #126b4f;
-  --green-dark: #0a4635;
-  --gold: #c89124;
-  --blue: #315c8c;
+  --green: #1aa66a;
+  --green-dark: #111111;
+  --gold: #f2b705;
+  --blue: #2769d8;
+  --purple: #5f3dc4;
+  --orange: #f97316;
   --red: #b44242;
-  --shadow: 0 20px 50px rgba(18, 35, 29, 0.14);
+  --shadow: 0 20px 45px rgba(17, 17, 17, 0.1);
 }
 
 * {
@@ -27,7 +29,9 @@ html {
 body {
   margin: 0;
   color: var(--ink);
-  background: var(--paper);
+  background:
+    linear-gradient(180deg, #ffffff 0, var(--paper) 420px),
+    var(--paper);
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   line-height: 1.5;
 }
@@ -47,10 +51,38 @@ a {
 
 .app-hero {
   min-height: 68vh;
-  color: #fff;
+  position: relative;
+  overflow: hidden;
+  color: var(--ink);
   background:
-    linear-gradient(90deg, rgba(7, 38, 29, 0.92), rgba(7, 38, 29, 0.56) 52%, rgba(7, 38, 29, 0.28)),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.97) 0 43%, rgba(255, 255, 255, 0.82) 58%, rgba(255, 255, 255, 0.2)),
     url("assets/ufcat-lab-hero.png") center / cover;
+}
+
+.app-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 8px;
+  background: linear-gradient(90deg, #111 0 16%, #df2029 16% 30%, #f97316 30% 44%, #f2d21b 44% 58%, #15a05f 58% 72%, #1d72d2 72% 86%, #5f3dc4 86% 100%);
+}
+
+.app-hero::after {
+  content: "";
+  position: absolute;
+  right: 8vw;
+  top: 138px;
+  width: min(48vw, 620px);
+  height: 210px;
+  background: linear-gradient(90deg, rgba(17, 17, 17, 0.04), rgba(223, 32, 41, 0.2), rgba(249, 115, 22, 0.22), rgba(242, 210, 27, 0.22), rgba(21, 160, 95, 0.2), rgba(29, 114, 210, 0.18), rgba(95, 61, 196, 0.2));
+  clip-path: polygon(0 46%, 100% 0, 100% 100%);
+  pointer-events: none;
+}
+
+.topbar,
+.hero-content {
+  position: relative;
+  z-index: 1;
 }
 
 .topbar {
@@ -85,7 +117,7 @@ a {
   width: 92px;
   height: 52px;
   overflow: hidden;
-  border: 2px solid rgba(255, 255, 255, 0.78);
+  border: 1px solid #dadde3;
   border-radius: 8px;
   background: #fff;
 }
@@ -99,7 +131,7 @@ a {
 
 .brand small {
   display: block;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--muted);
 }
 
 .topbar-actions {
@@ -110,7 +142,7 @@ a {
 }
 
 .topbar-actions a:not(.button) {
-  color: rgba(255, 255, 255, 0.86);
+  color: #2f3339;
 }
 
 .hero-content {
@@ -129,7 +161,7 @@ a {
 
 .eyebrow {
   margin: 0 0 8px;
-  color: var(--gold);
+  color: #b20f1f;
   font-size: 0.78rem;
   font-weight: 900;
   letter-spacing: 0;
@@ -154,7 +186,7 @@ h1 {
 .hero-copy p:last-child {
   max-width: 720px;
   margin-bottom: 0;
-  color: rgba(255, 255, 255, 0.84);
+  color: #454a52;
   font-size: 1.08rem;
 }
 
@@ -162,9 +194,9 @@ h1 {
   justify-content: space-between;
   gap: 18px;
   padding: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  border: 1px solid rgba(17, 17, 17, 0.08);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.78);
   backdrop-filter: blur(12px);
 }
 
@@ -179,7 +211,7 @@ h1 {
 }
 
 .hero-panel small {
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--muted);
 }
 
 main {
@@ -241,7 +273,7 @@ form {
 label {
   display: grid;
   gap: 6px;
-  color: var(--green-dark);
+  color: var(--ink);
   font-size: 0.88rem;
   font-weight: 800;
 }
@@ -266,8 +298,8 @@ textarea {
 input:focus,
 select:focus,
 textarea:focus {
-  border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(18, 107, 79, 0.15);
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(39, 105, 216, 0.14);
 }
 
 .field-row {
@@ -317,22 +349,22 @@ textarea:focus {
 
 .button.primary {
   color: #fff;
-  background: var(--green);
+  background: #111;
 }
 
 .button.ghost {
-  color: var(--green-dark);
+  color: #111;
   background: #fff;
 }
 
 .button.secondary {
-  color: var(--green-dark);
-  background: #e8f2ec;
+  color: #111;
+  background: #edf0f5;
 }
 
 .button.approve {
   color: #fff;
-  background: var(--green);
+  background: var(--blue);
 }
 
 .button.danger {
@@ -347,7 +379,7 @@ textarea:focus {
   width: 44px;
   height: 44px;
   color: #fff;
-  background: var(--green);
+  background: #111;
   font-size: 1.3rem;
 }
 
@@ -368,7 +400,7 @@ textarea:focus {
   gap: 14px;
   padding: 16px;
   border: 1px solid var(--line);
-  border-left: 5px solid var(--green);
+  border-left: 5px solid var(--blue);
   border-radius: 8px;
   background: #fff;
   min-width: 0;
@@ -422,8 +454,8 @@ textarea:focus {
   min-height: 28px;
   border-radius: 999px;
   padding: 4px 10px;
-  color: var(--green-dark);
-  background: #e8f2ec;
+  color: #111;
+  background: #eef1f6;
   font-weight: 800;
   max-width: 100%;
   overflow-wrap: anywhere;
@@ -446,8 +478,8 @@ textarea:focus {
 }
 
 .status-badge.approved {
-  color: var(--green-dark);
-  background: #dff3e8;
+  color: #0f3d74;
+  background: #e4efff;
 }
 
 .status-badge.rejected {
@@ -457,11 +489,11 @@ textarea:focus {
 
 .empty-state {
   padding: 28px;
-  border: 1px dashed #b8c8bf;
+  border: 1px dashed #c5c9d1;
   border-radius: 8px;
   color: var(--muted);
   text-align: center;
-  background: #fbfdfb;
+  background: #fbfcff;
 }
 
 .equipment-section {
@@ -493,7 +525,7 @@ textarea:focus {
   height: 52px;
   border-radius: 8px;
   color: #fff;
-  background: var(--blue);
+  background: linear-gradient(135deg, #111 0 24%, #df2029 24% 38%, #f2b705 38% 55%, #1aa66a 55% 72%, #2769d8 72% 88%, #5f3dc4 88%);
   font-size: 1.6rem;
 }
 
@@ -515,7 +547,7 @@ textarea:focus {
 }
 
 .status {
-  color: var(--green);
+  color: #0f3d74;
   font-weight: 900;
 }
 
@@ -528,7 +560,7 @@ textarea:focus {
   padding: 14px 16px;
   border-radius: 8px;
   color: #fff;
-  background: var(--green-dark);
+  background: #111;
   box-shadow: var(--shadow);
   opacity: 0;
   transform: translateY(12px);
@@ -565,8 +597,8 @@ textarea:focus {
 .admin-stats span {
   border-radius: 8px;
   padding: 10px 12px;
-  color: var(--green-dark);
-  background: #f0f5f1;
+  color: #111;
+  background: #eef1f6;
   font-weight: 800;
 }
 
@@ -586,7 +618,7 @@ textarea:focus {
 }
 
 .admin-card.status-approved {
-  border-left-color: var(--green);
+  border-left-color: var(--blue);
 }
 
 .admin-card.status-rejected {
